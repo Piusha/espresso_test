@@ -1,0 +1,18 @@
+Whats In this Code
+--------------------
+In General
+    - Repository Pattern Used in order to extend the Persistence layer functionality
+    - I.e Caching layer Can be implemented
+    - Used Exceptions to throw validations
+
+What I planed if I had time
+--------------
+1. Use Layered Architecture pattern
+2. use SOLID principles as much as possible.
+3. Since this is API I could use CQRS pattern 
+4. Secure API with oAuth or oAuth2
+5. API documentation not provided I could have use tool like swagger 
+6. More validations can be added from the application layer
+7. I could persist the data somewhere in DB in order to see actual workflow.
+8. Espresso machine Status may not accurate as I did not maintain any state  
+
