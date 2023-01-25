@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+
+    # PHP service
+    app:
+        build:
+            context: ./
+            dockerfile: php8.docker
+        container_name: expresso-php-app
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - app-network
+
+    # MySQL database service
+    db:
+        image: mysql:8.0
+        container_name: expresso-mysql-db
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+        env_file:
+            - ./.env
+        networks:
+            - app-network
+        volumes:
+            - ./dbdata:/var/lib/mysql
+            - ./mysql-database.cnf:/etc/mysql/conf.d/mysql-database.cnf
+
+    # Nginx service
+    nginx:
+        image: nginx:alpine
+        container_name: expresso-php-nginx
+        ports:
+            - 8000:80
+        volumes:
+            - ./:/var/www
+            - ./nginx/conf.d/:/etc/nginx/conf.d/
+        networks:
+            - app-network
+
+networks:
+    app-network:
+        driver: bridge
